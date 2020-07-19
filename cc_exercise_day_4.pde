@@ -20,12 +20,17 @@ void setup()
 
 void draw()
 {
+  //trail effect setup
   blendMode(SUBTRACT);
-  fill(255, 1);
+  fill(255, 2);
   rect(0, 0, width, height);
   blendMode(BLEND);
-
-  diameter = map(sin(radians(frameCount)*8), -2, 2, 0, 100);
+  
+  //interaction, change diameter with mouseY position
+  diameter = map(mouseY, 0, height, 50, 100);
+  
+  //this equation changes the diameter in a looping pattern 
+  //diameter = map(sin(radians(frameCount)*8), -2, 2, 0, 100);
   x = map(sin(radians(frameCount)), -1, 1, diameter, width-diameter);
   y = map(cos(radians(frameCount)), -1, 1, diameter, height-diameter);
 
@@ -44,4 +49,8 @@ void draw()
   line(x2, y2, width/2, height/2);
 
   print(diameter);
+}
+
+void mousePressed() {
+  saveFrame("frame-####.png");
 }
