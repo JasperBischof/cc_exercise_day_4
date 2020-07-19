@@ -1,21 +1,13 @@
-float x;
-float y; 
-float x2;
-float y2;
-float diameter;
-float xoff = 50;
-float yoff = 120;
+Outercircle Oc1;
+Innercircle Ic1;
+
 
 void setup()
 {
   background(0);
   size(1000, 1000);
-
-  x = width / 2;
-  y = height / 2;
-  diameter = 100;
-
-  noiseSeed(66666);
+  Oc1 = new Outercircle(0, 0);
+  Ic1 = new Innercircle(0, 0);
 }
 
 void draw()
@@ -25,30 +17,11 @@ void draw()
   fill(255, 2);
   rect(0, 0, width, height);
   blendMode(BLEND);
-  
-  //interaction, change diameter with mouseY position
-  diameter = map(mouseY, 0, height, 50, 100);
-  
-  //this equation changes the diameter in a looping pattern 
-  //diameter = map(sin(radians(frameCount)*8), -2, 2, 0, 100);
-  x = map(sin(radians(frameCount)), -1, 1, diameter, width-diameter);
-  y = map(cos(radians(frameCount)), -1, 1, diameter, height-diameter);
 
-  x2 = map(-sin(radians(frameCount)), -1, 1, diameter*4, width-diameter*4);
-  y2 = map(cos(radians(frameCount)), -1, 1, diameter*4, height-diameter*4);
-
-  noFill();
-  stroke(map(noise(xoff), 0, 1, 0, 255), map(noise(yoff), 0, 1, 0, 255), 255);
-
-  xoff = xoff + 0.01;
-  yoff = yoff + 0.01;
-
-  circle(x, y, diameter);
-  line(x, y, width/2, height/2);
-  circle(x2, y2, diameter);
-  line(x2, y2, width/2, height/2);
-
-  print(diameter);
+  Oc1.display();
+  Oc1.move();
+  Ic1.display();
+  Ic1.move();
 }
 
 void mousePressed() {
